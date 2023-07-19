@@ -7,6 +7,8 @@ import requests
 
 session_id = ""
 
+value_item_base = 0.5
+
 def upgradeWeapons(session_id, token):
     options = uc.ChromeOptions()
     options.add_argument('--headless')
@@ -42,9 +44,9 @@ def upgradeWeapons(session_id, token):
 
     for item in response.json()["data"]["elements"]:
         # Balance to add to item
-        balance_to_add = math.floor(((0.13 + 0.13*(math.floor(item["price"] / 0.13))) * 0.88 - item["price"]) * 100) / 100
+        balance_to_add = math.floor(((value_item_base + value_item_base*(math.floor(item["price"] / value_item_base))) * 0.88 - item["price"]) * 100) / 100
         # Item Value to upgrade
-        item_value_to_upgrade = (0.13 + 0.13*(math.floor(item["price"] / 0.13)))
+        item_value_to_upgrade = (value_item_base + value_item_base*(math.floor(item["price"] / value_item_base)))
 
         params = {
             'page': '0',
